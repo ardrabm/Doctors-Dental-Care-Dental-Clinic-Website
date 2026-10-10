@@ -24,7 +24,9 @@ app.use(helmet({ contentSecurityPolicy: false, crossOriginResourcePolicy: { poli
 app.use(cors({ origin: process.env.CORS_ORIGIN || `http://localhost:${port}` }));
 app.use(express.json({ limit: '20kb' }));
 app.use(express.static(__dirname));
-
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'index.html'));
+});
 const clean = value => String(value || '').replace(/[<>]/g, '').trim();
 const pastDate = value => {
   const selected = new Date(`${value}T00:00:00`); const today = new Date(); today.setHours(0, 0, 0, 0);
